@@ -1,6 +1,10 @@
-#include "doctest.h"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <iostream>
+
 #include "Node.hpp"
 #include "Tree.hpp"
+
+#include "doctest.h"
 
 TEST_CASE("Test Add Node")
 {
@@ -8,12 +12,12 @@ TEST_CASE("Test Add Node")
     Node<int> child1(2);
     Node<int> child2(3);
 
-    CHECK(node.getData() == 1);
+    CHECK(node.get_value() == 1);
 
-    node.addChild(&child1);
-    node.addChild(&child2);
+    node.add_child(child1);
+    node.add_child(child2);
 
-    CHECK(node.getChildren().size() == 2);
+    CHECK(node.get_children().size() == 2);
 }
 
 TEST_CASE("Test Get Child")
@@ -22,26 +26,26 @@ TEST_CASE("Test Get Child")
     Node<int> child1(2);
     Node<int> child2(3);
 
-    node.addChild(&child1);
-    node.addChild(&child2);
+    node.add_child(child1);
+    node.add_child(child2);
 
-    CHECK(node.getChild(0)->getData() == 2);
-    CHECK(node.getChild(1)->getData() == 3);
+    CHECK(node.get_child(0).get_value() == 2);
+    CHECK(node.get_child(1).get_value() == 3);
 }
 
-TEST_CASE("Test Remove Child")
+TEST_CASE("Test remove_child")
 {
     Node<int> node(1);
     Node<int> child1(2);
     Node<int> child2(3);
 
-    node.addChild(&child1);
-    node.addChild(&child2);
+    node.add_child(child1);
+    node.add_child(child2);
 
-    node.removeChild(&child1);
+    node.remove_child(child1);
 
-    CHECK(node.getChildren().size() == 1);
-    CHECK(node.getChild(0)->getData() == 3);
+    CHECK(node.get_children().size() == 1);
+    CHECK(node.get_child(0).get_value() == 3);
 }
 
 TEST_CASE("TEST Invalid Index")
@@ -50,9 +54,9 @@ TEST_CASE("TEST Invalid Index")
     Node<int> child1(2);
     Node<int> child2(3);
 
-    node.addChild(&child1);
-    node.addChild(&child2);
+    node.add_child(child1);
+    node.add_child(child2);
 
-    CHECK_THROWS(node.getChild(2));
-    CHECK_THROWS(node.getChild(-1));
+    CHECK_THROWS(node.get_child(2));
+    CHECK_THROWS(node.get_child(-1));
 }

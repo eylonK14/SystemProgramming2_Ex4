@@ -1,9 +1,7 @@
 #include "Node.hpp"
 
-
 template<typename T> Node<T>::Node(T data) : _data(data) 
 {
-
 }
 
 template<typename T> Node<T>::~Node()
@@ -14,12 +12,12 @@ template<typename T> Node<T>::~Node()
     }
 }
 
-template<typename T> void Node<T>::addChild(Node<T> child)
+template<typename T> void Node<T>::add_child(Node<T> child)
 {
     _children.push_back(child);
 }
 
-template<typename T> void Node<T>::removeChild(Node<T> child)
+template<typename T> void Node<T>::remove_child(Node<T> child)
 {
     for (size_t i = 0; i < _children.size(); i++)
     {
@@ -32,12 +30,12 @@ template<typename T> void Node<T>::removeChild(Node<T> child)
     }
 }
 
-template<typename T> T Node<T>::getData()
+template<typename T> T Node<T>::get_value()
 {
     return _data;
 }
 
-template<typename T> Node<T> Node<T>::getChild(int index)
+template<typename T> Node<T> Node<T>::get_child(int index)
 {
     if (index < 0 || index >= _children.size())
     {
@@ -47,7 +45,7 @@ template<typename T> Node<T> Node<T>::getChild(int index)
     return _children[i];
 }
 
-template<typename T> std::vector<Node<T>> Node<T>::getChildren()
+template<typename T> std::vector<Node<T>> Node<T>::get_children()
 {
     return _children;
 }

@@ -1,9 +1,9 @@
-CC=CXX=clang++
+CXX=clang++
 CXXFLAGS=-std=c++11 -Werror -Wsign-conversion -g
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-SOURCES=Node.hpp Tree.hpp Test.cpp
-DEMO_SOURCES=Node.hpp Tree.hpp
+SOURCES=Node.cpp Tree.cpp Test.cpp
+DEMO_SOURCES=Node.cpp Tree.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEMO_OBJECTS=$(DEMO_SOURCES:.cpp=.o)
 
@@ -12,7 +12,7 @@ all: demo test
 demo: Demo.o $(DEMO_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o demo
 
-test: TestCounter.o Test.o $(OBJECTS)
+test: Test.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o test
 
 tidy:
