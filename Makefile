@@ -2,8 +2,8 @@ CXX=clang++
 CXXFLAGS=-std=c++11 -Werror -Wsign-conversion -g
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-SOURCES=Node.cpp Tree.cpp Test.cpp
-DEMO_SOURCES=Node.cpp Tree.cpp
+SOURCES=Node.hpp Tree.hpp Test.cpp
+DEMO_SOURCES=Demo.cpp Node.hpp Tree.hpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEMO_OBJECTS=$(DEMO_SOURCES:.cpp=.o)
 

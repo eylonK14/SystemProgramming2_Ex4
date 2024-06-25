@@ -8,15 +8,38 @@
 #define BIN 2
 
 template <typename T, int N = BIN>
-class Tree {
+class Tree
+{
 
-    public:
-        Tree();
-        ~Tree();
-        void add_root(Node<T>);
-        void add_sub_root(Node<T>, Node<T>);
-        Node<T> get_root();
+public:
+    Tree() : _root(nullptr)
+    {
+    }
+    ~Tree()
+    {
+        delete this->_root;
+    }
 
-    private:
-        Node<T> _root;
+    void add_root(Node<T> root)
+    {
+        _root = root;
+    }
+
+    void add_sub_root(Node<T> parent, Node<T> child)
+    {
+        if (parent->get_children().size() >= N)
+        {
+            throw std::out_of_range("Parent has too many children");
+        }
+
+        parent->add_child(child);
+    }
+
+    Node<T> get_root()
+    {
+        return _root;
+    }
+
+private:
+    Node<T> _root;
 };
