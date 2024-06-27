@@ -3,7 +3,7 @@ CXXFLAGS=-std=c++2a -Werror -Wsign-conversion -g
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
 # Assuming Demo.cpp and Test.cpp are your main .cpp files that include the template headers
-SOURCES=Test.cpp
+SOURCES=Test.cpp Complex.cpp
 DEMO_SOURCES=Demo.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEMO_OBJECTS=$(DEMO_SOURCES:.cpp=.o)
