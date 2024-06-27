@@ -1,22 +1,23 @@
 CXX=clang++
-CXXFLAGS=-std=c++11 -Werror -Wsign-conversion -g
+CXXFLAGS=-std=c++2a -Werror -Wsign-conversion -g
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-SOURCES=Node.hpp Tree.hpp Test.cpp
-DEMO_SOURCES=Demo.cpp Node.hpp Tree.hpp
+# Assuming Demo.cpp and Test.cpp are your main .cpp files that include the template headers
+SOURCES=Test.cpp
+DEMO_SOURCES=Demo.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEMO_OBJECTS=$(DEMO_SOURCES:.cpp=.o)
 
 all: demo test
 
-demo: Demo.o $(DEMO_OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o demo
+demo: $(DEMO_OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-test: Test.o $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o test
+test: $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 tidy:
-	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
+	clang-tidy $(SOURCES) $(DEMO_SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
 
 valgrind: demo test
 	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo 2>&1 | { egrep "lost| at " || true; }
@@ -30,4 +31,3 @@ valgrind: demo test
 
 clean:
 	rm -f *.o demo test
-

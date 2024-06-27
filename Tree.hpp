@@ -1,4 +1,4 @@
-// eylony1403@gmail.com
+//@author eylony1403@gmail.com
 
 #pragma once
 
@@ -12,20 +12,19 @@ class Tree
 {
 
 public:
-    Tree() : _root(nullptr)
+    Tree()
     {
     }
     ~Tree()
     {
-        delete this->_root;
     }
 
-    void add_root(Node<T> root)
+    void add_root(Node<T>* root)
     {
         _root = root;
     }
 
-    void add_sub_root(Node<T> parent, Node<T> child)
+    void add_sub_root(Node<T>* parent, Node<T>* child)
     {
         if (parent->get_children().size() >= N)
         {
@@ -35,11 +34,11 @@ public:
         parent->add_child(child);
     }
 
-    Node<T> get_root()
+    Node<T>* get_root()
     {
         return _root;
     }
 
 private:
-    Node<T> _root;
+    Node<T>* _root;
 };
