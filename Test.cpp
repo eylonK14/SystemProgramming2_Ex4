@@ -105,8 +105,8 @@ TEST_CASE("Test add_sub_root BIN")
     Node<int> child2(3);
 
     tree.add_root(&root);
-    tree.add_sub_root(&root, &child1);
-    tree.add_sub_root(&root, &child2);
+    tree.add_sub_node(&root, &child1);
+    tree.add_sub_node(&root, &child2);
 
     CHECK(tree.get_root()->get_children().size() == 2);
 }
@@ -120,9 +120,9 @@ TEST_CASE("Test add_sub_root 3")
     Node<int> child3(4);
 
     tree.add_root(&root);
-    tree.add_sub_root(&root, &child1);
-    tree.add_sub_root(&root, &child2);
-    tree.add_sub_root(&root, &child3);
+    tree.add_sub_node(&root, &child1);
+    tree.add_sub_node(&root, &child2);
+    tree.add_sub_node(&root, &child3);
 
     CHECK(tree.get_root()->get_children().size() == 3);
 }
@@ -136,10 +136,10 @@ TEST_CASE("Test Invalid Adding Sub Root")
     Node<int> child3(4);
 
     tree.add_root(&root);
-    tree.add_sub_root(&root, &child1);
-    tree.add_sub_root(&root, &child2);
+    tree.add_sub_node(&root, &child1);
+    tree.add_sub_node(&root, &child2);
 
-    CHECK_THROWS(tree.add_sub_root(&root, &child3));
+    CHECK_THROWS(tree.add_sub_node(&root, &child3));
 }
 
 // ----------------- Complex -----------------

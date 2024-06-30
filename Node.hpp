@@ -18,7 +18,6 @@ public:
 
     ~Node()
     {
-        _children.clear();
     }
 
     void add_child(Node<T> *child)
@@ -48,7 +47,7 @@ public:
         }
     }
 
-    T &get_value()
+    const T &get_value() const
     {
         return _data;
     }
@@ -66,6 +65,16 @@ public:
     std::vector<Node<T> *> &get_children()
     {
         return _children;
+    }
+
+    bool operator==(const Node<T> &other) const
+    {
+        return _data == other._data;
+    }
+
+    bool operator!=(const Node<T> &other) const
+    {
+        return !(this == &other);
     }
 
 private:
