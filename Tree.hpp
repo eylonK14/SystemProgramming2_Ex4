@@ -7,17 +7,15 @@
 #include "Iterators.hpp"
 
 #define BIN 2
-
 template <typename T, int N = BIN>
-class Tree
+class AnyTree
 {
 
 public:
-    Tree()
+    AnyTree()
     {
-        _root = nullptr;
     }
-    ~Tree()
+    ~AnyTree()
     {
         BFSIterator<T> it = begin_bfs_scan();
         while (it != end_bfs_scan())
@@ -63,42 +61,6 @@ public:
         return BFSIterator<T>(nullptr);
     }
 
-    // InOrderIterator
-
-    InOrderIterator<T> begin_in_order()
-    {
-        return InOrderIterator<T>(_root);
-    }
-
-    InOrderIterator<T> end_in_order()
-    {
-        return InOrderIterator<T>(nullptr);
-    }
-
-    // PreOrderIterator
-
-    PreOrderIterator<T> begin_pre_order()
-    {
-        return PreOrderIterator<T>(_root);
-    }
-
-    PreOrderIterator<T> end_pre_order()
-    {
-        return PreOrderIterator<T>(nullptr);
-    }
-
-    // PostOrderIterator
-
-    PostOrderIterator<T> begin_post_order()
-    {
-        return PostOrderIterator<T>(_root);
-    }
-
-    PostOrderIterator<T> end_post_order()
-    {
-        return PostOrderIterator<T>(nullptr);
-    }
-
     // BFSIterator
 
     BFSIterator<T> begin_bfs_scan()
@@ -111,6 +73,100 @@ public:
         return BFSIterator<T>(nullptr);
     }
 
-private:
+    // DFSIterator
+
+    DFSIterator<T> begin_dfs_scan()
+    {
+        return DFSIterator<T>(_root);
+    }
+
+    DFSIterator<T> end_dfs_scan()
+    {
+        return DFSIterator<T>(nullptr);
+    }
+
+protected:
     Node<T> *_root;
+};
+
+template <typename T, int N = 2>
+class Tree : public AnyTree<T, N>
+{
+public:
+    // InOrderIterator
+
+    DFSIterator<T> begin_in_order()
+    {
+        return DFSIterator<T>(this->_root);
+    }
+
+    DFSIterator<T> end_in_order()
+    {
+        return DFSIterator<T>(nullptr);
+    }
+
+    // PreOrderIterator
+
+    DFSIterator<T> begin_pre_order()
+    {
+        return DFSIterator<T>(this->_root);
+    }
+
+    DFSIterator<T> end_pre_order()
+    {
+        return DFSIterator<T>(nullptr);
+    }
+
+    // PostOrderIterator
+
+    DFSIterator<T> begin_post_order()
+    {
+        return DFSIterator<T>(this->_root);
+    }
+
+    DFSIterator<T> end_post_order()
+    {
+        return DFSIterator<T>(nullptr);
+    }
+};
+
+template <typename T>
+class Tree<T, 2> : public AnyTree<T, 2>
+{
+public:
+    // InOrderIterator
+
+    InOrderIterator<T> begin_in_order()
+    {
+        return InOrderIterator<T>(this->_root);
+    }
+
+    InOrderIterator<T> end_in_order()
+    {
+        return InOrderIterator<T>(nullptr);
+    }
+
+    // PreOrderIterator
+
+    PreOrderIterator<T> begin_pre_order()
+    {
+        return PreOrderIterator<T>(this->_root);
+    }
+
+    PreOrderIterator<T> end_pre_order()
+    {
+        return PreOrderIterator<T>(nullptr);
+    }
+
+    // PostOrderIterator
+
+    PostOrderIterator<T> begin_post_order()
+    {
+        return PostOrderIterator<T>(this->_root);
+    }
+
+    PostOrderIterator<T> end_post_order()
+    {
+        return PostOrderIterator<T>(nullptr);
+    }
 };

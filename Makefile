@@ -8,6 +8,9 @@ DEMO_SOURCES=Demo.cpp Complex.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEMO_OBJECTS=$(DEMO_SOURCES:.cpp=.o)
 
+#tree: demo
+#	./$^
+
 all: demo test
 
 demo: $(DEMO_OBJECTS)

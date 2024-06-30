@@ -279,7 +279,7 @@ public:
         Node<T> *curr = root;
         q.push(curr);
 
-        while(!q.empty() && curr != nullptr)
+        while (!q.empty() && curr != nullptr)
         {
             curr = q.front();
             q.pop();
@@ -344,19 +344,26 @@ private:
 public:
     DFSIterator(Node<T> *root)
     {
-        std::queue<Node<T> *> q;
-        Node<T> *curr = root;
-        q.push(curr);
+        // Create a stack for DFS
+        std::stack<Node<T> *> stack;
 
-        while(!q.empty() && curr != nullptr)
+        // Push the current source node.
+        Node<T> *curr = root;
+        stack.push(curr);
+
+        while (!stack.empty() && curr != nullptr)
         {
-            curr = q.front();
-            q.pop();
+            curr = stack.top();
+            stack.pop();
             dfsList.push_back(curr);
 
-            for (size_t i = 0; i < curr->get_children().size(); i++)
+            if (curr->get_children().size() >= 1)
             {
-                q.push(curr->get_child(i));
+                for (int i = curr->get_children().size() - 1; i >= 0; i--)
+                {
+                    std::size_t s = static_cast<std::size_t>(i);
+                    stack.push(curr->get_child(s));
+                }
             }
         }
 

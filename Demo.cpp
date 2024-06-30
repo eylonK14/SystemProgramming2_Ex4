@@ -62,6 +62,13 @@ int main()
             std::cout << node->get_value() << std::endl;
         } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
+        std::cout << "DFS:" << std::endl;
+
+        for (auto node = tree.begin_dfs_scan(); node != tree.end_dfs_scan(); ++node)
+        {
+            std::cout << node->get_value() << std::endl;
+        } // prints: 1.1, 1.2, 1.4, 1.5, 1.3, 1.6
+
         std::cout << "Standart Iterator:" << std::endl;
 
         for (auto node : tree)
