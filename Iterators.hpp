@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <queue>
 #include "Node.hpp"
 
 template <typename T>
@@ -259,6 +260,144 @@ public:
     }
 
     bool operator!=(const PostOrderIterator &rhs) const
+    {
+        // Use the corrected operator== for comparison
+        return !(*this == rhs);
+    }
+}; // END OF CLASS ITERATOR
+
+template <typename T>
+class BFSIterator
+{
+private:
+    std::vector<Node<T> *> bfsList;
+
+public:
+    BFSIterator(Node<T> *root)
+    {
+        std::queue<Node<T> *> q;
+        Node<T> *curr = root;
+        q.push(curr);
+
+        while(!q.empty() && curr != nullptr)
+        {
+            curr = q.front();
+            q.pop();
+            bfsList.push_back(curr);
+
+            for (size_t i = 0; i < curr->get_children().size(); i++)
+            {
+                q.push(curr->get_child(i));
+            }
+        }
+
+        bfsList.push_back(nullptr); // Assuming you want to keep a nullptr at the end for some reason
+    }
+
+    const T &operator*() const
+    {
+        // return *pointer_to_current_node;
+        return bfsList.front()->get_value();
+    }
+
+    Node<T> *operator->() const
+    {
+        return bfsList.front();
+    }
+
+    // ++i;
+    BFSIterator &operator++()
+    {
+        //++pointer_to_current_node;
+        bfsList.erase(bfsList.begin());
+        return *this;
+    }
+
+    // i++;
+    // Usually iterators are passed by value and not by const& as they are small.
+    const BFSIterator operator++(int)
+    {
+        InOrderIterator tmp = *this;
+        bfsList.erase(bfsList.begin());
+        return tmp;
+    }
+
+    bool operator==(const BFSIterator &rhs) const
+    {
+        // Directly compare the vectors for equality
+        return bfsList == rhs.bfsList;
+    }
+
+    bool operator!=(const BFSIterator &rhs) const
+    {
+        // Use the corrected operator== for comparison
+        return !(*this == rhs);
+    }
+}; // END OF CLASS ITERATOR
+
+template <typename T>
+class DFSIterator
+{
+private:
+    std::vector<Node<T> *> dfsList;
+
+public:
+    DFSIterator(Node<T> *root)
+    {
+        std::queue<Node<T> *> q;
+        Node<T> *curr = root;
+        q.push(curr);
+
+        while(!q.empty() && curr != nullptr)
+        {
+            curr = q.front();
+            q.pop();
+            dfsList.push_back(curr);
+
+            for (size_t i = 0; i < curr->get_children().size(); i++)
+            {
+                q.push(curr->get_child(i));
+            }
+        }
+
+        dfsList.push_back(nullptr); // Assuming you want to keep a nullptr at the end for some reason
+    }
+
+    const T &operator*() const
+    {
+        // return *pointer_to_current_node;
+        return dfsList.front()->get_value();
+    }
+
+    const Node<T> *operator->() const
+    {
+        return dfsList.front();
+    }
+
+    // ++i;
+    DFSIterator &operator++()
+    {
+        //++pointer_to_current_node;
+        dfsList.erase(dfsList.begin());
+        return *this;
+    }
+
+    // i++;
+    // Usually iterators are passed by value and not by const& as they are small.
+    const DFSIterator operator++(int)
+    {
+        InOrderIterator tmp = *this;
+        dfsList.erase(dfsList.begin());
+        return tmp;
+    }
+
+    bool operator==(const DFSIterator &rhs) const
+    {
+        // Directly compare the vectors for equality
+        return dfsList == rhs.dfsList;
+    }
+
+    bool operator!=(const DFSIterator &rhs) const
     {
         // Use the corrected operator== for comparison
         return !(*this == rhs);

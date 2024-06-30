@@ -18,15 +18,15 @@ public:
 
     ~Node()
     {
+        _children.clear();
     }
 
     void add_child(Node<T> *child)
     {
-        if (std::find(child->_children.begin(), child->_children.end(), this) != child->_children.end())
+        if (std::find(child->_children.begin(), child->_children.end(), this) == child->_children.end())
         {
-            throw std::invalid_argument("Child already has this parent");
+            _children.push_back(child);
         }
-        _children.push_back(child);
     }
 
     void remove_child(Node<T> *child)

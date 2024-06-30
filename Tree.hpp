@@ -15,17 +15,26 @@ class Tree
 public:
     Tree()
     {
+        _root = nullptr;
     }
     ~Tree()
     {
+        BFSIterator<T> it = begin_bfs_scan();
+        while (it != end_bfs_scan())
+        {
+            BFSIterator<T> temp = it;
+            ++it;
+            temp->get_children().clear(); // Clear children
+        }
+        _root = nullptr;
     }
 
-    void add_root(Node<T>* root)
+    void add_root(Node<T> *root)
     {
         _root = root;
     }
 
-    void add_sub_node(Node<T>* parent, Node<T>* child)
+    void add_sub_node(Node<T> *parent, Node<T> *child)
     {
         if (parent->get_children().size() >= N)
         {
@@ -35,12 +44,24 @@ public:
         parent->add_child(child);
     }
 
-    Node<T>* get_root()
+    Node<T> *get_root()
     {
         return _root;
     }
 
     // ----------------- Iterators -----------------
+
+    // Iterator
+
+    BFSIterator<T> begin()
+    {
+        return BFSIterator<T>(_root);
+    }
+
+    BFSIterator<T> end()
+    {
+        return BFSIterator<T>(nullptr);
+    }
 
     // InOrderIterator
 
@@ -55,7 +76,7 @@ public:
     }
 
     // PreOrderIterator
-    
+
     PreOrderIterator<T> begin_pre_order()
     {
         return PreOrderIterator<T>(_root);
@@ -78,6 +99,18 @@ public:
         return PostOrderIterator<T>(nullptr);
     }
 
+    // BFSIterator
+
+    BFSIterator<T> begin_bfs_scan()
+    {
+        return BFSIterator<T>(_root);
+    }
+
+    BFSIterator<T> end_bfs_scan()
+    {
+        return BFSIterator<T>(nullptr);
+    }
+
 private:
-    Node<T>* _root;
+    Node<T> *_root;
 };
