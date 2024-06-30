@@ -91,12 +91,21 @@ DFSIterator<T> end_dfs_scan()
 The InOrder, PreOrder, PostOrder traversals are not available to K-ary trees, so they're implemented using the DFSIterator
 */
 
+//For K-ary
 DFSIterator<T> begin_in_order()
 DFSIterator<T> end_in_order()
 DFSIterator<T> begin_pre_order()
 DFSIterator<T> end_pre_order()
 DFSIterator<T> begin_post_order()
 DFSIterator<T> end_post_order()
+
+//For Binary
+InOrderIterator<T> begin_in_order()
+InOrderIterator<T> end_in_order()
+PreOrderIterator<T> begin_pre_order()
+PreOrderIterator<T> end_pre_order()
+PostOrderIterator<T> begin_post_order()
+PostOrderIterator<T> end_post_order()
 ```
 
 ## Execution
