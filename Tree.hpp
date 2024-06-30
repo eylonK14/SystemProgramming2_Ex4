@@ -7,6 +7,8 @@
 #include "Iterators.hpp"
 
 #define BIN 2
+
+//Base functions for trees
 template <typename T, int N = BIN>
 class AnyTree
 {
@@ -89,6 +91,7 @@ protected:
     Node<T> *_root;
 };
 
+// General k-nary tree
 template <typename T, int N = 2>
 class Tree : public AnyTree<T, N>
 {
@@ -130,6 +133,7 @@ public:
     }
 };
 
+// Specialization for binary tree
 template <typename T>
 class Tree<T, 2> : public AnyTree<T, 2>
 {
@@ -169,4 +173,17 @@ public:
     {
         return PostOrderIterator<T>(nullptr);
     }
+
+    // HeapIterator
+
+    HeapIterator<T> begin_heap()
+    {
+        return HeapIterator<T>(this->_root);
+    }
+
+    HeapIterator<T> end_heap()
+    {
+        return HeapIterator<T>(nullptr);
+    }
+
 };

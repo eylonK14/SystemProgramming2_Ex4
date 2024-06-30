@@ -410,3 +410,66 @@ public:
         return !(*this == rhs);
     }
 }; // END OF CLASS ITERATOR
+
+template <typename T>
+class HeapIterator
+{
+private:
+    std::vector<Node<T> *> heapList;
+
+public:
+    HeapIterator(Node<T> *root)
+    {
+        if (root != nullptr)
+        {
+            for (auto it = BFSIterator<T>(root); it != BFSIterator<T>(nullptr); ++it)
+            {
+                heapList.push_back(it.operator->());
+            }
+
+            std::make_heap(heapList.begin(), heapList.end());
+        }
+
+        heapList.push_back(nullptr); // Assuming you want to keep a nullptr at the end for some reason
+    }
+
+    const T &operator*() const
+    {
+        // return *pointer_to_current_node;
+        return heapList.front()->get_value();
+    }
+
+    const Node<T> *operator->() const
+    {
+        return heapList.front();
+    }
+
+    // ++i;
+    HeapIterator &operator++()
+    {
+        //++pointer_to_current_node;
+        heapList.erase(heapList.begin());
+        return *this;
+    }
+
+    // i++;
+    // Usually iterators are passed by value and not by const& as they are small.
+    const HeapIterator operator++(int)
+    {
+        InOrderIterator tmp = *this;
+        heapList.erase(heapList.begin());
+        return tmp;
+    }
+
+    bool operator==(const HeapIterator &rhs) const
+    {
+        // Directly compare the vectors for equality
+        return heapList == rhs.heapList;
+    }
+
+    bool operator!=(const HeapIterator &rhs) const
+    {
+        // Use the corrected operator== for comparison
+        return !(*this == rhs);
+    }
+}; // END OF CLASS ITERATOR

@@ -75,6 +75,13 @@ int main()
         {
             std::cout << node << std::endl;
         } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+
+        std::cout << "Heap Iterator:" << std::endl;
+
+        for(auto node = tree.begin_heap(); node != tree.end_heap(); ++node)
+        {
+            std::cout << node->get_value() << std::endl;
+        } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
     }
 
     // cout << tree; // Should print the graph using GUI.
@@ -100,6 +107,13 @@ int main()
         std::cout << "BFS 3-ary:" << std::endl;
 
         for (auto node = three_ary_tree.begin_bfs_scan(); node != three_ary_tree.end_bfs_scan(); ++node)
+        {
+            std::cout << node->get_value() << std::endl;
+        }
+
+        std::cout << "DFS 3-ary:" << std::endl;
+
+        for (auto node = three_ary_tree.begin_dfs_scan(); node != three_ary_tree.end_dfs_scan(); ++node)
         {
             std::cout << node->get_value() << std::endl;
         }
