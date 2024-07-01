@@ -2,13 +2,14 @@
 
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Node.hpp"
 #include "Iterators.hpp"
 
 #define BIN 2
 
-//Base functions for trees
+// Base functions for trees
 template <typename T, int N = BIN>
 class AnyTree
 {
@@ -85,6 +86,16 @@ public:
     DFSIterator<T> end_dfs_scan()
     {
         return DFSIterator<T>(nullptr);
+    }
+
+    // ----------------- Drawing -----------------
+
+    void drawTree(sf::RenderWindow &window)
+    {
+        if (_root)
+        {
+            _root->drawNode(window, 0, window.getSize().x / 2, 50); // Start at center, adjust y-position
+        }
     }
 
 protected:
@@ -185,5 +196,4 @@ public:
     {
         return HeapIterator<T>(nullptr);
     }
-
 };

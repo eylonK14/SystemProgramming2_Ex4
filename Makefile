@@ -1,20 +1,23 @@
 CXX=clang++
 CXXFLAGS=-std=c++2a -Werror -Wsign-conversion -g
-VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-# Assuming Demo.cpp and Test.cpp are your main .cpp files that include the template headers
+# SFML integration
+SFML_LIB_DIR := $(shell pkg-config --libs-only-L sfml-graphics)
+SFML_LIBS := -lsfml-graphics -lsfml-window -lsfml-system
+
+# Assuming Demo.cpp and Test.cpp are your main .cpp files
 SOURCES=Test.cpp Complex.cpp
 DEMO_SOURCES=Demo.cpp Complex.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DEMO_OBJECTS=$(DEMO_SOURCES:.cpp=.o)
 
 #tree: demo
-#	./$^
+#   ./$^
 
 all: demo test
 
 demo: $(DEMO_OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(SFML_LIB_DIR) $(SFML_LIBS)  # Link with SFML libraries
 
 test: $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
