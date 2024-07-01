@@ -18,6 +18,11 @@ BFS, DFS (for all trees), InOrder, PreOrder, PostOrder, Heap (only for binary tr
     - [Iterators.hpp](#iteratorshpp)
   - [Tree Class](#tree-class)
     - [Tree.hpp](#treehpp)
+  - [Libraries Used](#libraries-used)
+    - [Containers Library](#containers-library)
+    - [Testing Library](#testing-library)
+    - [GUI Library](#gui-library)
+    - [I\\O Library](#io-library)
   - [Execution](#execution)
   - [Author](#author)
 
@@ -37,6 +42,7 @@ Node<T> *&get_child(int index)
 std::vector<Node<T> *> &get_children()
 bool operator==(const Node<T> &other) const
 bool operator!=(const Node<T> &other) const
+void drawNode(sf::RenderWindow &window, int depth, int x, int y)
 ```
 
 ## Complex Class
@@ -86,6 +92,7 @@ BFSIterator<T> begin_bfs_scan()
 BFSIterator<T> end_bfs_scan()
 DFSIterator<T> begin_dfs_scan()
 DFSIterator<T> end_dfs_scan()
+void drawTree(sf::RenderWindow &window)
 
 /* K-ary/Binary tree specialization - only difference is in the implementation: 
 The InOrder, PreOrder, PostOrder traversals are not available to K-ary trees, so they're implemented using the DFSIterator
@@ -106,6 +113,36 @@ PreOrderIterator<T> begin_pre_order()
 PreOrderIterator<T> end_pre_order()
 PostOrderIterator<T> begin_post_order()
 PostOrderIterator<T> end_post_order()
+```
+
+## Libraries Used
+
+Here's a list of all libraries used in this project:
+
+### Containers Library
+
+```c++
+#include <vector>
+#include <stack>
+#include <queue>
+```
+
+### Testing Library
+
+```c++
+#include "doctest.h"
+```
+
+### GUI Library
+
+```c++
+#include <SFML/Graphics.hpp>
+```
+
+### I\O Library
+
+```c++
+#include <iostream>
 ```
 
 ## Execution
