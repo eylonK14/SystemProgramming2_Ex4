@@ -4,15 +4,28 @@
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include <SFML/Graphics.hpp>
+#include "Complex.hpp"
+
+// Custom to_string template
+template<typename T>
+std::string to_string(const T& value) {
+    // Fallback to std::to_string for non-Complex types
+    return std::to_string(value);
+}
+
+template<>
+std::string to_string<Complex>(const Complex& value) {
+    // Directly call the Complex's to_string
+    return to_string(value); // Calls the friend function of Complex
+}
 
 template <typename T>
 class Node
 {
 
 public:
-#include "Node.hpp"
-
     Node(T data) : _data(data)
     {
     }
@@ -78,10 +91,31 @@ public:
         return !(this == &other);
     }
 
+std::string to_str() const
+{
+    std::string str;
+    if (std::is_same<T, Complex>::value)
+    {
+        // Correctly use the to_string function for Complex types
+        str = to_string(get_value()); // Assuming get_value() returns a Complex type
+    }
+    else if (std::is_floating_point<T>::value || std::is_integral<T>::value)
+    {
+        str = to_string(get_value());
+        str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+        if (str.back() == '.')
+        {
+            str.pop_back();
+        }
+    }
+
+    return str;
+}
+
     void drawNode(sf::RenderWindow &window, int depth, int x, int y)
     {
         // Draw filled circle (white)
-        sf::CircleShape circle(35.f);
+        sf::CircleShape circle(27.f);
         circle.setFillColor(sf::Color::White);
         circle.setPointCount(1000);
         circle.setOutlineColor(sf::Color::Black);
@@ -91,13 +125,13 @@ public:
         window.draw(circle);
 
         sf::Font font;
-        font.loadFromFile("28 Days Later.ttf");
+        font.loadFromFile("BebasNeue-Regular.ttf");
 
         // Display node value in the center
         sf::Text text;
         text.setFont(font);
-        text.setString(std::to_string(this->_data));
-        text.setCharacterSize(20);
+        text.setString(this->to_str());
+        text.setCharacterSize(13);
         text.setFillColor(sf::Color::Black);
         sf::FloatRect textRect = text.getLocalBounds();
         text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
@@ -112,7 +146,7 @@ public:
             int s = static_cast<int>(this->_children.size());
             float childX = x + (p * (2 * 35.f + 50)) - (s * (35.f + 25)) + 60; // Adjust spacing
             float childY = y + childYOffset;
-            sf::Vertex line[] = {sf::Vertex(sf::Vector2f(x, y + 35), sf::Color::Black), sf::Vertex(sf::Vector2f(childX, childY + 20), sf::Color::Black)};
+            sf::Vertex line[] = {sf::Vertex(sf::Vector2f(x, y + 27.f), sf::Color::Black), sf::Vertex(sf::Vector2f(childX, childY - 10), sf::Color::Black)};
             window.draw(line, 2, sf::Lines);
             this->_children[i]->drawNode(window, depth + 1, childX, childY);
         }

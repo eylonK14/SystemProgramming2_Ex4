@@ -166,7 +166,7 @@ public:
     // Usually iterators are passed by value and not by const& as they are small.
     const PreOrderIterator operator++(int)
     {
-        InOrderIterator tmp = *this;
+        PreOrderIterator tmp = *this;
         preOrderList.erase(preOrderList.begin());
         return tmp;
     }
@@ -248,7 +248,7 @@ public:
     // Usually iterators are passed by value and not by const& as they are small.
     const PostOrderIterator operator++(int)
     {
-        InOrderIterator tmp = *this;
+        PostOrderIterator tmp = *this;
         postOrderList.erase(postOrderList.begin());
         return tmp;
     }
@@ -317,7 +317,7 @@ public:
     // Usually iterators are passed by value and not by const& as they are small.
     const BFSIterator operator++(int)
     {
-        InOrderIterator tmp = *this;
+        BFSIterator tmp = *this;
         bfsList.erase(bfsList.begin());
         return tmp;
     }
@@ -393,7 +393,7 @@ public:
     // Usually iterators are passed by value and not by const& as they are small.
     const DFSIterator operator++(int)
     {
-        InOrderIterator tmp = *this;
+        DFSIterator tmp = *this;
         dfsList.erase(dfsList.begin());
         return tmp;
     }
@@ -427,7 +427,7 @@ public:
                 heapList.push_back(it.operator->());
             }
 
-            std::make_heap(heapList.begin(), heapList.end());
+            std::make_heap(heapList.begin(), heapList.end(), [](Node<T>* a, Node<T>* b) { return a->get_value() > b->get_value(); });
         }
 
         heapList.push_back(nullptr); // Assuming you want to keep a nullptr at the end for some reason
@@ -456,7 +456,7 @@ public:
     // Usually iterators are passed by value and not by const& as they are small.
     const HeapIterator operator++(int)
     {
-        InOrderIterator tmp = *this;
+        HeapIterator tmp = *this;
         heapList.erase(heapList.begin());
         return tmp;
     }

@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <sstream>
 #include "Node.hpp"
 #include "Iterators.hpp"
 
@@ -90,16 +91,39 @@ public:
 
     // ----------------- Drawing -----------------
 
-    void drawTree(sf::RenderWindow &window)
+    friend std::ostream &operator<<(std::ostream &stream, const AnyTree<T, N> &other)
+    {
+        sf::RenderWindow window(sf::VideoMode(400, 400), "Tree Display", sf::Style::Default);
+
+        while (window.isOpen())
+        {
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear(sf::Color::White);
+            other.drawTree(window);
+            window.display();
+        }
+
+        return stream;
+    }
+
+protected:
+    Node<T> *_root;
+
+    void drawTree(sf::RenderWindow &window) const
     {
         if (_root)
         {
             _root->drawNode(window, 0, window.getSize().x / 2, 50); // Start at center, adjust y-position
         }
     }
-
-protected:
-    Node<T> *_root;
 };
 
 // General k-nary tree

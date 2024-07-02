@@ -23,6 +23,7 @@ BFS, DFS (for all trees), InOrder, PreOrder, PostOrder, Heap (only for binary tr
     - [Testing Library](#testing-library)
     - [GUI Library](#gui-library)
     - [I\\O Library](#io-library)
+  - [Usage](#usage)
   - [Execution](#execution)
   - [Author](#author)
 
@@ -42,6 +43,9 @@ Node<T> *&get_child(int index)
 std::vector<Node<T> *> &get_children()
 bool operator==(const Node<T> &other) const
 bool operator!=(const Node<T> &other) const
+std::string to_str() const
+template<> std::string to_string<Complex>(const Complex& value)
+template<typename T> std::string to_string(const T& value)
 void drawNode(sf::RenderWindow &window, int depth, int x, int y)
 ```
 
@@ -52,8 +56,14 @@ This class implements the complex numbers , that we'll use the demo.
 ### Complex.hpp
 
 ```c++
-Complex(double, double)
-bool operator==(const Complex &) const
+Complex(double, double);
+double normal() const;
+bool operator==(const Complex &) const;
+bool operator>(const Complex &) const;
+std::string string_rep() const;
+
+std::string to_string(const Complex &other);
+std::ostream &operator<<(std::ostream &stream, const Complex &other);
 ```
 
 ## Iterators Class
@@ -81,7 +91,7 @@ This is the main `Tree` container. There's a basic `AnyTree` class for the funct
 ### Tree.hpp
 
 ```cpp
-//AnyTree class functions: 
+//AnyTree class functions:
 
 void add_root(Node<T> *root)
 void add_sub_node(Node<T> *parent, Node<T> *child)
@@ -93,8 +103,9 @@ BFSIterator<T> end_bfs_scan()
 DFSIterator<T> begin_dfs_scan()
 DFSIterator<T> end_dfs_scan()
 void drawTree(sf::RenderWindow &window)
+friend std::ostream &operator<<(std::ostream &stream, const AnyTree<T, N> &other)
 
-/* K-ary/Binary tree specialization - only difference is in the implementation: 
+/* K-ary/Binary tree specialization - only difference is in the implementation:
 The InOrder, PreOrder, PostOrder traversals are not available to K-ary trees, so they're implemented using the DFSIterator
 */
 
@@ -143,6 +154,31 @@ Here's a list of all libraries used in this project:
 
 ```c++
 #include <iostream>
+#include <sstream>
+#include <cmath>
+```
+
+## Usage
+
+This is how you use the container:
+
+```c++
+Node<double> root_node(1.1) //create base node
+Tree<double> tree; //create binary double tree
+Tree<int, 3> tree; //create 3-ary int tree
+
+tree.add_root(&root_node); //set the root for a tree
+
+Node<double> n1(1.2)
+tree.add_sub_node(&root_node, &n1) //add son for the root node
+
+//use the iterator
+for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
+{
+  std::cout << node->get_value() << " ";
+}
+
+std::cout << tree //print the tree using GUI
 ```
 
 ## Execution
@@ -154,7 +190,8 @@ In order to execute the project, preform the following commands in the terminal:
 
 ```make
 make tree # will execute the demo file
-./test # will execute the test after make is done
+make test # will create the test exe file
+./test # execute the test file
 ```
 
 ## Author
