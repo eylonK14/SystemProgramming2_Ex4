@@ -116,6 +116,8 @@ DFSIterator<T> begin_pre_order()
 DFSIterator<T> end_pre_order()
 DFSIterator<T> begin_post_order()
 DFSIterator<T> end_post_order()
+DFSIterator<T> begin_heap()
+DFSIterator<T> end_heap()
 
 //For Binary
 InOrderIterator<T> begin_in_order()
@@ -124,6 +126,8 @@ PreOrderIterator<T> begin_pre_order()
 PreOrderIterator<T> end_pre_order()
 PostOrderIterator<T> begin_post_order()
 PostOrderIterator<T> end_post_order()
+HeapIterator<T> begin_heap()
+HeapIterator<T> end_heap()
 ```
 
 ## Libraries Used

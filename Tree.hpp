@@ -166,6 +166,16 @@ public:
     {
         return DFSIterator<T>(nullptr);
     }
+
+    DFSIterator<T> begin_heap()
+    {
+        return HeapIterator<T>(this->_root);
+    }
+
+    DFSIterator<T> end_heap()
+    {
+        return HeapIterator<T>(nullptr);
+    }
 };
 
 // Specialization for binary tree
