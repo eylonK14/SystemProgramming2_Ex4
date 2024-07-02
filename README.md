@@ -1,9 +1,9 @@
 # Tree Iterators - With GUI
 
 This project implements a new `Tree` container.
-The default of the `Tree` is a binary tree, but can be implemented to any amount of nodes that a father canp possess.
+The default of the `Tree` is a binary tree, but it can be implemented to any amount of nodes that a father can possess.
 
-There are also implemetations of various iterators:
+There are also implementations of various iterators:
 BFS, DFS (for all trees), InOrder, PreOrder, PostOrder, Heap (only for binary tree).
 
 ## Class Hierarchy (Bottom To Top)
@@ -51,7 +51,7 @@ void drawNode(sf::RenderWindow &window, int depth, int x, int y)
 
 ## Complex Class
 
-This class implements the complex numbers , that we'll use the demo.
+This class implements the complex numbers, that we'll use in the demo.
 
 ### Complex.hpp
 
@@ -86,7 +86,7 @@ bool operator!=(const InOrderIterator &rhs) const
 
 ## Tree Class
 
-This is the main `Tree` container. There's a basic `AnyTree` class for the functionality that every tree (binary and k-ary) can implement, and then there's specialization for the `Binary Tree` class.
+This is the main `Tree` container. There's a basic `AnyTree` class for the functionality that every tree (binary and k-ary) can implement, and then there's a specialization for the `Binary Tree` class.
 
 ### Tree.hpp
 
@@ -105,8 +105,8 @@ DFSIterator<T> end_dfs_scan()
 void drawTree(sf::RenderWindow &window)
 friend std::ostream &operator<<(std::ostream &stream, const AnyTree<T, N> &other)
 
-/* K-ary/Binary tree specialization - only difference is in the implementation:
-The InOrder, PreOrder, PostOrder traversals are not available to K-ary trees, so they're implemented using the DFSIterator
+/* K-ary/Binary tree specialization - the only difference is in the implementation:
+The InOrder, PreOrder, and PostOrder traversals are not available to K-ary trees, so they're implemented using the DFSIterator
 */
 
 //For K-ary
@@ -183,10 +183,10 @@ std::cout << tree //print the tree using GUI
 
 ## Execution
 
-The are two files being executed in the project : `demo` and `test`.
+The are two files being executed in the project: `demo` and `test`.
 `demo` is used to showcase a main program that demonstrates how the program works.
 `test` is used to showcase the testing done on the various functions of the project.
-In order to execute the project, preform the following commands in the terminal:
+In order to execute the project, perform the following commands in the terminal:
 
 ```make
 make tree # will execute the demo file
